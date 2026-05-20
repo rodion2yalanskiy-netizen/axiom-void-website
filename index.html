@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AURELIA is a luxury tile and stone installation studio. We specialize in bespoke bookmatched marble slab fabrication, large-format porcelain tiling, and handcrafted Zellige for high-end residential and commercial estates.">
+  <title>AURELIA | Luxury Tile &amp; Stone Installation Studio</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS CUSTOM PROPERTIES (DESIGN SYSTEM) */
+    :root {
+      --color-charcoal-dark: #0d0d0d;
+      --color-charcoal-mid: #161618;
+      --color-charcoal-light: #222224;
+      --color-gold-matte: #c5a880;
+      --color-gold-bright: #e5cda8;
+      --color-gold-dark: #8c7352;
+      --color-white: #f5f5f7;
+      --color-gray-text: #a1a1a6;
+      --color-gray-muted: #4e4e52;
+      --color-gold-border: rgba(197, 168, 128, 0.15);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* BASE STYLES */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--color-charcoal-dark);
+      color: var(--color-white);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* CUSTOM SCROLLBAR */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--color-charcoal-dark);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-gold-dark);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-gold-matte);
+    }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      letter-spacing: 0.03em;
+    }
+
+    p {
+      font-weight: 300;
+      color: var(--color-gray-text);
+      letter-spacing: 0.02em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition-fast);
+    }
+
+    /* CUSTOM CURSOR */
+    .custom-cursor {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-gold-matte);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.3s, height 0.3s, background-color 0.3s;
+    }
+
+    .custom-cursor-outline {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--color-gold-matte);
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9998;
+      transition: var(--transition-smooth);
+    }
+
+    /* UTILITIES */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 2.5rem;
+      border: 1px solid var(--color-gold-matte);
+      background: transparent;
+      color: var(--color-gold-matte);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 1;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 100%;
+      background-color: var(--color-gold-matte);
+      z-index: -1;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-gold:hover {
+      color: var(--color-charcoal-dark);
+      border-color: var(--color-gold-matte);
+    }
+
+    .btn-gold:hover::before {
+      width: 100%;
+    }
+
+    /* SCROLL REVEAL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       NAVIGATION
+       ========================================================================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: rgba(13, 13, 13, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-gold-border);
+      transition: var(--transition-smooth);
+    }
+
+    header.scrolled {
+      padding: 0.8rem 0;
+      background-color: rgba(13, 13, 13, 0.95);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 90px;
+      transition: var(--transition-smooth);
+    }
+
+    header.scrolled .nav-wrapper {
+      height: 70px;
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      letter-spacing: 0.15em;
+      color: var(--color-white);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1;
+    }
+
+    .logo span {
+      font-family: var(--font-sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-gold-matte);
+      margin-top: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-gray-text);
+      font-weight: 400;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: var(--color-gold-matte);
+      transition: var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-gold-matte);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 1px;
+      background-color: var(--color-white);
+      transition: var(--transition-fast);
+    }
+
+    @media (max-width: 1024px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background-color: var(--color-charcoal-dark);
+        border-bottom: 1px solid var(--color-gold-border);
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem 0;
+        gap: 2rem;
+        z-index: 999;
+      }
+
+      header.scrolled .nav-links {
+        top: 70px;
+      }
+
+      .nav-links.mobile-active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+    }
+
+    /* ==========================================================================
+       HERO SECTION
+       ========================================================================== */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(13, 13, 13, 0.4), rgba(13, 13, 13, 0.9)), url('assets/hero-bg.png');
+      background-size: cover;
+      background-position: center;
+      z-index: -1;
+      transform: scale(1.05);
+      animation: zoomOut 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes zoomOut {
+      from { transform: scale(1.15); }
+      to { transform: scale(1.05); }
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 900px;
+      z-index: 10;
+      padding: 0 2rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.4em;
+      color: var(--color-gold-matte);
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .hero-title {
+      font-size: 4.5rem;
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    .hero-title span {
+      font-style: italic;
+      color: var(--color-gold-bright);
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 3rem auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+    }
+
+    .hero-actions {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      color: var(--color-gray-text);
+      z-index: 10;
+    }
+
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+    }
+
+    .scroll-indicator .line {
+      width: 1px;
+      height: 50px;
+      background-color: var(--color-gold-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scroll-indicator .line::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 20px;
+      background-color: var(--color-gold-matte);
+      animation: scrollDown 2s infinite ease-in-out;
+    }
+
+    @keyframes scrollDown {
+      0% { top: -20px; }
+      100% { top: 50px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+      .hero-subtitle {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ==========================================================================
+       PHILOSOPHY SECTION
+       ========================================================================== */
+    .philosophy {
+      padding: 10rem 0;
+      position: relative;
+      border-bottom: 1px solid var(--color-gold-border);
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .philosophy-left h2 {
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 2rem;
+    }
+
+    .philosophy-left h2 span {
+      display: block;
+      color: var(--color-gold-matte);
+      font-style: italic;
+      font-size: 3.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .philosophy-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .philosophy-right p {
+      font-size: 1.05rem;
+      text-align: justify;
+    }
+
+    .philosophy-right .accent-quote {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-gold-bright);
+      line-height: 1.4;
+      border-left: 2px solid var(--color-gold-matte);
+      padding-left: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 992px) {
+      .philosophy-grid {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      .philosophy {
+        padding: 6rem 0;
+      }
+    }
+
+    /* ==========================================================================
+       SERVICES SECTION
+       ========================================================================== */
+    .services {
+      padding: 10rem 0;
+      background-color: var(--color-charcoal-mid);
+      border-bottom: 1px solid var(--color-gold-border);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 6rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      color: var(--color-gold-matte);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      color: var(--color-white);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background-color: var(--color-charcoal-dark);
+      border: 1px solid var(--color-gold-border);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 420px;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-gold-matte);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(197, 168, 128, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .service-card:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .service-num {
+      font-family: var(--font-sans);
+      font-weight: 200;
+      font-size: 1rem;
+      color: var(--color-gold-matte);
+      letter-spacing: 0.1em;
+    }
+
+    .service-title {
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      color: var(--color-white);
+    }
+
+    .service-desc {
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+    }
+
+    .service-link {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-gold-matte);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .service-link svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--color-gold-matte);
+      stroke-width: 2;
+      transition: var(--transition-fast);
+    }
+
+    .service-card:hover .service-link svg {
+      transform: translateX(5px);
+    }
+
+    @media (max-width: 1200px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .services {
+        padding: 6rem 0;
+      }
+    }
+
+    /* ==========================================================================
+       PORTFOLIO SECTION
+       ========================================================================== */
+    .portfolio {
+      padding: 10rem 0;
+      border-bottom: 1px solid var(--color-gold-border);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2.5rem;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      border: 1px solid var(--color-gold-border);
+    }
+
+    /* Alternating layout for masonry look */
+    .item-large {
+      grid-column: span 7;
+      aspect-ratio: 4/3;
+    }
+
+    .item-small {
+      grid-column: span 5;
+    }
+
+    .item-full {
+      grid-column: span 12;
+      aspect-ratio: 16/7;
+    }
+
+    .portfolio-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to top, rgba(13, 13, 13, 0.95) 0%, rgba(13, 13, 13, 0.2) 60%, rgba(13, 13, 13, 0) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 3rem;
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+    }
+
+    .portfolio-item:hover .portfolio-img {
+      transform: scale(1.08);
+    }
+
+    .portfolio-item:hover .portfolio-overlay {
+      opacity: 1;
+    }
+
+    .portfolio-category {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-gold-matte);
+      margin-bottom: 0.8rem;
+      transform: translateY(20px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+    }
+
+    .portfolio-item-title {
+      font-size: 2rem;
+      color: var(--color-white);
+      margin-bottom: 0.5rem;
+      transform: translateY(20px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    }
+
+    .portfolio-material {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--color-gray-text);
+      transform: translateY(20px);
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    }
+
+    .portfolio-item:hover .portfolio-category,
+    .portfolio-item:hover .portfolio-item-title,
+    .portfolio-item:hover .portfolio-material {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 992px) {
+      .item-large, .item-small, .item-full {
+        grid-column: span 12;
+        aspect-ratio: 4/3;
+      }
+      .portfolio-grid {
+        gap: 1.5rem;
+      }
+      .portfolio {
+        padding: 6rem 0;
+      }
+      .portfolio-overlay {
+        padding: 2rem;
+      }
+      .portfolio-item-title {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* ==========================================================================
+       PRECISION DETAILS (INTERACTIVE TABS)
+       ========================================================================== */
+    .precision {
+      padding: 10rem 0;
+      background-color: var(--color-charcoal-mid);
+      border-bottom: 1px solid var(--color-gold-border);
+    }
+
+    .precision-wrapper {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .precision-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .precision-tab-btn {
+      background: transparent;
+      border: 1px solid var(--color-gold-border);
+      padding: 2.2rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+
+    .precision-tab-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background-color: var(--color-gold-matte);
+      transform: scaleY(0);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .precision-tab-btn.active {
+      background-color: var(--color-charcoal-dark);
+      border-color: rgba(197, 168, 128, 0.3);
+    }
+
+    .precision-tab-btn.active::before {
+      transform: scaleY(1);
+    }
+
+    .tab-num {
+      font-size: 0.75rem;
+      color: var(--color-gold-matte);
+      letter-spacing: 0.15em;
+      margin-bottom: 0.5rem;
+    }
+
+    .tab-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-white);
+    }
+
+    .precision-content {
+      position: relative;
+      min-height: 400px;
+    }
+
+    .precision-panel {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .precision-panel.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      position: relative;
+    }
+
+    .precision-panel h3 {
+      font-size: 2.2rem;
+      color: var(--color-gold-bright);
+      margin-bottom: 1.5rem;
+    }
+
+    .precision-panel p {
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .precision-spec-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .precision-spec-list li {
+      position: relative;
+      padding-left: 1.8rem;
+      font-size: 0.95rem;
+      color: var(--color-gray-text);
+    }
+
+    .precision-spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      border: 1px solid var(--color-gold-matte);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 992px) {
+      .precision-wrapper {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      .precision-content {
+        min-height: auto;
+      }
+    }
+
+    /* ==========================================================================
+       TESTIMONIALS SECTION
+       ========================================================================== */
+    .testimonials {
+      padding: 10rem 0;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--color-gold-border);
+    }
+
+    .testimonials-carousel {
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .testimonial-slide {
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .testimonial-slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .testimonial-quote {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      line-height: 1.5;
+      font-style: italic;
+      color: var(--color-white);
+      margin-bottom: 3rem;
+    }
+
+    .testimonial-author {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--color-gold-matte);
+      font-weight: 500;
+    }
+
+    .testimonial-role {
+      font-size: 0.8rem;
+      color: var(--color-gray-text);
+      margin-top: 0.4rem;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .carousel-btn {
+      background: transparent;
+      border: 1px solid var(--color-gold-border);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition-fast);
+    }
+
+    .carousel-btn:hover {
+      border-color: var(--color-gold-matte);
+      background-color: rgba(197, 168, 128, 0.05);
+    }
+
+    .carousel-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--color-gold-matte);
+      stroke-width: 1.5;
+    }
+
+    .carousel-btn-prev svg {
+      transform: rotate(180deg);
+    }
+
+    /* ==========================================================================
+       CONTACT & INQUIRY
+       ========================================================================== */
+    .contact {
+      padding: 10rem 0;
+      background-color: var(--color-charcoal-mid);
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 6rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-info h2 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+
+    .contact-info h2 span {
+      display: block;
+      color: var(--color-gold-matte);
+      font-style: italic;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .detail-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-gold-matte);
+    }
+
+    .detail-val {
+      font-size: 1.1rem;
+      color: var(--color-white);
+    }
+
+    /* Interactive Luxury Form */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    .form-group-full {
+      grid-column: span 2;
+    }
+
+    .form-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--color-gray-muted);
+      padding: 1rem 0;
+      color: var(--color-white);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+
+    /* Smooth Floating Labels */
+    .form-label {
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      color: var(--color-gray-text);
+      font-weight: 300;
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: var(--transition-fast);
+    }
+
+    .form-input:focus ~ .form-label,
+    .form-input:not(:placeholder-shown) ~ .form-label {
+      top: -1rem;
+      font-size: 0.75rem;
+      color: var(--color-gold-matte);
+      letter-spacing: 0.1em;
+    }
+
+    .form-input:focus {
+      border-bottom-color: var(--color-gold-matte);
+    }
+
+    /* Form validation styling */
+    .form-input:user-valid {
+      border-bottom-color: var(--color-gold-matte);
+    }
+
+    .form-input:focus:invalid {
+      border-bottom-color: #e06c75;
+    }
+
+    textarea.form-input {
+      min-height: 120px;
+      resize: none;
+    }
+
+    .form-feedback {
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .form-feedback.success {
+      color: var(--color-gold-matte);
+      display: block;
+    }
+
+    .form-feedback.error {
+      color: #e06c75;
+      display: block;
+    }
+
+    @media (max-width: 992px) {
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+      }
+      .contact-info h2 {
+        font-size: 2.8rem;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .form-group-full {
+        grid-column: span 1;
+      }
+      .contact {
+        padding: 6rem 0;
+      }
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    footer {
+      background-color: var(--color-charcoal-dark);
+      border-top: 1px solid var(--color-gold-border);
+      padding: 6rem 0 3rem 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 4rem;
+      margin-bottom: 5rem;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      max-width: 280px;
+      margin-bottom: 2rem;
+    }
+
+    .footer-title {
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2rem;
+      color: var(--color-gold-matte);
+      margin-bottom: 1.8rem;
+      font-weight: 500;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--color-gray-text);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-gold-matte);
+      transform: translateX(3px);
+    }
+
+    .footer-hours p {
+      font-size: 0.85rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.75rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .social-links a {
+      color: var(--color-gray-text);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    .social-links a:hover {
+      color: var(--color-gold-matte);
+    }
+
+    @media (max-width: 992px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="custom-cursor-outline" id="custom-cursor-outline"></div>
+
+  <!-- HEADER / NAV -->
+  <header id="header">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="logo" id="logo-link">
+        AURELIA
+        <span>Stone &amp; Tile Studio</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#precision">Craftsmanship</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-cta">
+        <a href="#contact" class="btn-gold" id="nav-contact-btn">Inquire</a>
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="hero-subtitle">ARTISTRY IN STONE</span>
+      <h1 class="hero-title">Elevating Surfaces Into <br><span>Bespoke Masterpieces</span></h1>
+      <p class="hero-description">Architectural tile and stone installations executed with flawless precision for premium residences and refined estates.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-gold" id="hero-portfolio-btn">View Gallery</a>
+      </div>
+    </div>
+    <div class="scroll-indicator" id="scroll-indicator">
+      <span>Scroll</span>
+      <div class="line"></div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY SECTION -->
+  <section class="philosophy reveal" id="philosophy">
+    <div class="container philosophy-grid">
+      <div class="philosophy-left">
+        <span class="section-subtitle">OUR VALUES</span>
+        <h2>Precision is not a metric. <br><span>It is our signature.</span></h2>
+      </div>
+      <div class="philosophy-right">
+        <p>At Aurelia, we view tile and natural stone installation as a high-precision discipline rather than a trade. Partnering with top-tier interior architects, luxury homebuilders, and private clients, we execute complex stone designs with uncompromising standards.</p>
+        <p>From bookmatched Italian Calacatta slabs to handcrafted Moroccan Zellige layouts, our craftspeople merge time-honored artisanal details with modern mechanical leveling and waterproofing systems.</p>
+        <div class="accent-quote">
+          "A perfect installation respects the raw nature of the stone while integrating flawlessly with modern architecture."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES SECTION -->
+  <section class="services reveal" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">STUDIO SERVICES</span>
+        <h2 class="section-title">The Scope of Our Craft</h2>
+      </div>
+
+      <div class="services-grid">
+        <!-- Service 1 -->
+        <div class="service-card">
+          <div>
+            <div class="service-num">I / IV</div>
+            <h3 class="service-title">Bespoke Slab Bookmatching</h3>
+            <p class="service-desc">Impeccable vein matching and layout modeling for stone accent walls, fireplaces, and luxury floating vanities.</p>
+          </div>
+          <a href="#contact" class="service-link">
+            Inquire 
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-card">
+          <div>
+            <div class="service-num">II / IV</div>
+            <h3 class="service-title">Large-Format Porcelain</h3>
+            <p class="service-desc">Professional handling, mechanical leveling, and installation of oversized porcelain sheets up to 3.2 meters long.</p>
+          </div>
+          <a href="#contact" class="service-link">
+            Inquire 
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-card">
+          <div>
+            <div class="service-num">III / IV</div>
+            <h3 class="service-title">Handcrafted Tiling</h3>
+            <p class="service-desc">Meticulous setting of organic materials including traditional Zellige, handmade ceramic tiles, and custom marble mosaics.</p>
+          </div>
+          <a href="#contact" class="service-link">
+            Inquire 
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="service-card">
+          <div>
+            <div class="service-num">IV / IV</div>
+            <h3 class="service-title">Luxury Wetrooms</h3>
+            <p class="service-desc">Schluter-certified waterproofing, custom linear floor drains, curbless thresholds, and integrated steam showers.</p>
+          </div>
+          <a href="#contact" class="service-link">
+            Inquire 
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO SECTION -->
+  <section class="portfolio reveal" id="portfolio">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">CURATED PORTFOLIO</span>
+        <h2 class="section-title">Executed Commissions</h2>
+      </div>
+
+      <div class="portfolio-grid">
+        <!-- Item 1 (Bathroom Dark - Large Layout) -->
+        <div class="portfolio-item item-large">
+          <img class="portfolio-img" src="assets/portfolio-1.png" alt="Luxury modern bathroom in dark charcoal textured stone tiles with matte gold fixtures">
+          <div class="portfolio-overlay">
+            <span class="portfolio-category">Residential Master Spa</span>
+            <h3 class="portfolio-item-title">The Charcoal Retreat</h3>
+            <span class="portfolio-material">Large Format Basaltine Tile &amp; Matte Gold Fixtures</span>
+          </div>
+        </div>
+
+        <!-- Item 2 (Backsplash Green Zellige - Small Layout) -->
+        <div class="portfolio-item item-small">
+          <img class="portfolio-img" src="assets/portfolio-2.png" alt="Handcrafted emerald green Zellige kitchen tile backsplash with gold kitchen sink faucet">
+          <div class="portfolio-overlay">
+            <span class="portfolio-category">Architectural Kitchen</span>
+            <h3 class="portfolio-item-title">Emerald Backsplash</h3>
+            <span class="portfolio-material">Handcrafted Moroccan Glazed Zellige</span>
+          </div>
+        </div>
+
+        <!-- Item 3 (Mitered corner joint detail - Small Layout) -->
+        <div class="portfolio-item item-small">
+          <img class="portfolio-img" src="assets/portfolio-3.png" alt="Precision mitered floating bathroom vanity slab detail in Calacatta marble">
+          <div class="portfolio-overlay">
+            <span class="portfolio-category">Detail Showcase</span>
+            <h3 class="portfolio-item-title">Mitered Calacatta</h3>
+            <span class="portfolio-material">Continuous Bookmatched Veining &amp; 45° Edging</span>
+          </div>
+        </div>
+
+        <!-- Item 4 (Pool Deck - Large Layout) -->
+        <div class="portfolio-item item-large">
+          <img class="portfolio-img" src="assets/portfolio-4.png" alt="Luxury outdoor pool deck with premium limestone travertine tiles">
+          <div class="portfolio-overlay">
+            <span class="portfolio-category">Coastal Villa Exterior</span>
+            <h3 class="portfolio-item-title">Travertine Pool Deck</h3>
+            <span class="portfolio-material">Honed &amp; Filled Travertine Slabs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECISION DETAILS (INTERACTIVE TABS) -->
+  <section class="precision reveal" id="precision">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-subtitle">THE DETAILS</span>
+        <h2 class="section-title">Architectural Precision</h2>
+      </div>
+
+      <div class="precision-wrapper">
+        <!-- Interactive Left Buttons -->
+        <div class="precision-tabs">
+          <button class="precision-tab-btn active" data-tab="tab-mitering" id="btn-mitering">
+            <span class="tab-num">DETAIL 01</span>
+            <span class="tab-title">Seamless Mitered Edging</span>
+          </button>
+          <button class="precision-tab-btn" data-tab="tab-leveling" id="btn-leveling">
+            <span class="tab-num">DETAIL 02</span>
+            <span class="tab-title">Zero-Lippage Alignment</span>
+          </button>
+          <button class="precision-tab-btn" data-tab="tab-drainage" id="btn-drainage">
+            <span class="tab-num">DETAIL 03</span>
+            <span class="tab-title">Schluter Wetroom Substrate</span>
+          </button>
+        </div>
+
+        <!-- Panels Content Right -->
+        <div class="precision-content">
+          <!-- Panel 1 -->
+          <div class="precision-panel active" id="tab-mitering">
+            <h3>Flawless 45° Joinery</h3>
+            <p>For custom floating vanities, niche edges, and architectural corners, we hand-profile and polish marble and porcelain margins. Our mitering techniques guarantee that natural patterns stream continuously across planes with microscopic grout lines, avoiding unsightly metal trim.</p>
+            <ul class="precision-spec-list">
+              <li>Continuous vein matching</li>
+              <li>Micro-epoxy color tuning</li>
+              <li>Sub-millimeter tolerances</li>
+              <li>Slab-to-slab structure support</li>
+            </ul>
+          </div>
+
+          <!-- Panel 2 -->
+          <div class="precision-panel" id="tab-leveling">
+            <h3>Zero-Lippage Grout Planes</h3>
+            <p>Large format tiles are highly prone to surface deviations (lippage). We combat this by utilizing advanced multi-point mechanical tensioning leveling systems, ensuring completely flat floor and wall planes. This is crucial for linear lighting designs that emphasize flat surfaces.</p>
+            <ul class="precision-spec-list">
+              <li>Substrate flattening prep</li>
+              <li>Laser plane line alignment</li>
+              <li>Mechanical tension clips</li>
+              <li>Post-cure flatness verification</li>
+            </ul>
+          </div>
+
+          <!-- Panel 3 -->
+          <div class="precision-panel" id="tab-drainage">
+            <h3>Certified Waterproofing Systems</h3>
+            <p>Behind every luxurious tile is a robust engineering layer. We are certified installers of premium Schluter substrates. We build fully vapor-tight wetroom enclosures, custom sloped mortar beds, and integrated linear drains, resulting in long-term peace of mind.</p>
+            <ul class="precision-spec-list">
+              <li>Vapor-tight membrane shields</li>
+              <li>Low-profile linear drains</li>
+              <li>Curbless layout planning</li>
+              <li>Lifetime structural integrity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / BOOKING FORM -->
+  <section class="contact reveal" id="contact">
+    <div class="container contact-wrapper">
+      <div class="contact-info">
+        <div>
+          <span class="section-subtitle">PROJECT CONSULTATIONS</span>
+          <h2>Bring Vision <br><span>To Reality</span></h2>
+          <p>We work exclusively with custom builders, interior architects, and discerning homeowners. Reach out to schedule a private stone consultation or layout estimate.</p>
+        </div>
+        
+        <div class="contact-details">
+          <div class="detail-item">
+            <span class="detail-label">Design Studio</span>
+            <span class="detail-val">104 Aurelia Way, San Francisco, CA</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Direct Communication</span>
+            <span class="detail-val">inquire@aureliastone.com<br>+1 (415) 555-8930</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Luxury Interactive Form -->
+      <form class="contact-form" id="consultation-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="form-name" class="form-input" placeholder=" " required autocomplete="name">
+            <label for="form-name" class="form-label">Full Name</label>
+          </div>
+          <div class="form-group">
+            <input type="email" id="form-email" class="form-input" placeholder=" " required autocomplete="email">
+            <label for="form-email" class="form-label">Email Address</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="form-phone" class="form-input" placeholder=" " autocomplete="tel">
+            <label for="form-phone" class="form-label">Phone Number</label>
+          </div>
+          <div class="form-group">
+            <input type="text" id="form-location" class="form-input" placeholder=" " required>
+            <label for="form-location" class="form-label">Project Location (City / ZIP)</label>
+          </div>
+        </div>
+
+        <div class="form-group form-group-full">
+          <textarea id="form-message" class="form-input" placeholder=" " required></textarea>
+          <label for="form-message" class="form-label">Tell us about your project (Slab selections, dimensions, schedule...)</label>
+        </div>
+
+        <div>
+          <button type="submit" class="btn-gold" id="form-submit-btn">Send Inquiry</button>
+          <div class="form-feedback" id="form-feedback-message"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS SECTION -->
+  <section class="testimonials reveal" id="testimonials">
+    <div class="container">
+      <div class="testimonials-carousel">
+        
+        <!-- Slide 1 -->
+        <div class="testimonial-slide active" data-index="0">
+          <div class="testimonial-quote">
+            "Aurelia's attention to detail is unmatched. They bookmatched a 12-foot marble slab wall in our master wetroom, and the veins flow so perfectly it looks like a single painting. They are true architectural artisans."
+          </div>
+          <div class="testimonial-author">Helen Harrington</div>
+          <div class="testimonial-role">Principal at Harrington Design Studio</div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="testimonial-slide" data-index="1">
+          <div class="testimonial-quote">
+            "We build premium custom estates, and our clients expect perfection. Aurelia's installation of large-format porcelain slabs was flawlessly flat, with zero-lippage. They are the only team we trust with large format stone."
+          </div>
+          <div class="testimonial-author">Marcus Sterling</div>
+          <div class="testimonial-role">CEO of Sterling Custom Homes</div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="testimonial-slide" data-index="2">
+          <div class="testimonial-quote">
+            "Our kitchen backsplash in handcrafted emerald Zellige tiles required a highly sensitive artisanal hand. Aurelia set them organically, emphasizing their raw beauty. The finish is stunning."
+          </div>
+          <div class="testimonial-author">Dr. Evelyn Reynolds</div>
+          <div class="testimonial-role">Private Homeowner, Atherton CA</div>
+        </div>
+
+      </div>
+
+      <!-- Controls -->
+      <div class="carousel-controls">
+        <button class="carousel-btn carousel-btn-prev" id="carousel-prev" aria-label="Previous testimonial">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="carousel-btn carousel-btn-next" id="carousel-next" aria-label="Next testimonial">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="logo">
+          AURELIA
+          <span>Stone &amp; Tile Studio</span>
+        </a>
+        <p>Providing custom stone fabrication and high-end tile installations for architectural designs.</p>
+      </div>
+
+      <div>
+        <h4 class="footer-title">STUDIO</h4>
+        <ul class="footer-links">
+          <li><a href="#philosophy">Our Philosophy</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#portfolio">Our Commissions</a></li>
+          <li><a href="#precision">Craftsmanship</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-title">CONTACT</h4>
+        <ul class="footer-links">
+          <li><a href="#contact">Consultations</a></li>
+          <li><a href="mailto:inquire@aureliastone.com">inquire@aureliastone.com</a></li>
+          <li><a href="tel:+14155558930">+1 (415) 555-8930</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-hours">
+        <h4 class="footer-title">STUDIO HOURS</h4>
+        <p>Monday – Friday: 9 AM – 6 PM</p>
+        <p>Saturday: By Appointment Only</p>
+        <p>Sunday: Closed</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; 2026 AURELIA Studio. All Rights Reserved. Crafted with absolute precision.</p>
+      <div class="social-links">
+        <a href="#hero">Instagram</a>
+        <a href="#hero">Pinterest</a>
+        <a href="#hero">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ==========================================================================
+    // CUSTOM CURSOR LOGIC
+    // ==========================================================================
+    const cursorDot = document.getElementById('custom-cursor');
+    const cursorOutline = document.getElementById('custom-cursor-outline');
+
+    window.addEventListener('mousemove', function(e) {
+      const posX = e.clientX;
+      const posY = e.clientY;
+
+      // Dot follows mouse position directly
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
+
+      // Outline follows mouse position with smooth lag
+      cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+      }, { duration: 500, fill: "forwards" });
+    });
+
+    // Expand cursor hover animations on links, buttons
+    const interactiveElements = document.querySelectorAll('a, button, .precision-tab-btn');
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorDot.style.width = '12px';
+        cursorDot.style.height = '12px';
+        cursorDot.style.backgroundColor = '#e5cda8';
+        cursorOutline.style.width = '55px';
+        cursorOutline.style.height = '55px';
+        cursorOutline.style.borderColor = '#e5cda8';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorDot.style.width = '8px';
+        cursorDot.style.height = '8px';
+        cursorDot.style.backgroundColor = '#c5a880';
+        cursorOutline.style.width = '40px';
+        cursorOutline.style.height = '40px';
+        cursorOutline.style.borderColor = '#c5a880';
+      });
+    });
+
+    // ==========================================================================
+    // SCROLL ACTIONS (HEADER STYLE, SECTION REVEAL)
+    // ==========================================================================
+    const header = document.getElementById('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Section reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+      reveals.forEach(reveal => {
+        const revealTop = reveal.getBoundingClientRect().top;
+        // Trigger reveal when section enters 15% of viewport bottom
+        if (revealTop < windowHeight - 100) {
+          reveal.classList.add('active');
+        }
+      });
+    };
+
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // ==========================================================================
+    // PRECISION CORNER DETAIL - INTERACTIVE TABS
+    // ==========================================================================
+    const tabBtns = document.querySelectorAll('.precision-tab-btn');
+    const panels = document.querySelectorAll('.precision-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+
+        // Remove active class from all buttons and panels
+        tabBtns.forEach(b => b.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+
+        // Activate clicked button and matching panel
+        btn.classList.add('active');
+        document.getElementById(targetTab).classList.add('active');
+      });
+    });
+
+    // ==========================================================================
+    // TESTIMONIALS SLIDER
+    // ==========================================================================
+    const slides = document.querySelectorAll('.testimonial-slide');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    let currentSlide = 0;
+
+    const showSlide = (index) => {
+      slides.forEach(slide => slide.classList.remove('active'));
+      
+      currentSlide = (index + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+    };
+
+    prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+
+    // Auto rotate every 8 seconds
+    let carouselTimer = setInterval(() => showSlide(currentSlide + 1), 8000);
+
+    // Reset timer on manual control click
+    [prevBtn, nextBtn].forEach(btn => {
+      btn.addEventListener('click', () => {
+        clearInterval(carouselTimer);
+        carouselTimer = setInterval(() => showSlide(currentSlide + 1), 8000);
+      });
+    });
+
+    // ==========================================================================
+    // FORM SUBMISSION & INTERACTION
+    // ==========================================================================
+    const form = document.getElementById('consultation-form');
+    const feedback = document.getElementById('form-feedback-message');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Basic client validation
+      const name = document.getElementById('form-name').value.trim();
+      const email = document.getElementById('form-email').value.trim();
+      const location = document.getElementById('form-location').value.trim();
+      const message = document.getElementById('form-message').value.trim();
+
+      if (!name || !email || !location || !message) {
+        feedback.textContent = 'Please fill out all required fields before submitting.';
+        feedback.className = 'form-feedback error';
+        return;
+      }
+
+      // Check if email looks valid
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        feedback.textContent = 'Please enter a valid email address.';
+        feedback.className = 'form-feedback error';
+        return;
+      }
+
+      // Mock success response
+      feedback.textContent = 'Thank you. Your consultation request has been received. Our studio will contact you shortly.';
+      feedback.className = 'form-feedback success';
+
+      // Clear form
+      form.reset();
+
+      // Reset labels floating state
+      const inputs = form.querySelectorAll('.form-input');
+      inputs.forEach(input => {
+        input.blur();
+      });
+    });
+
+    // Mobile Navigation Drawer Toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.getElementById('nav-links');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('mobile-active');
+      // Visual feedback on mobile toggle button
+      const spans = menuToggle.querySelectorAll('span');
+      spans.forEach(span => {
+        span.style.backgroundColor = navLinks.classList.contains('mobile-active') ? '#c5a880' : '#f5f5f7';
+      });
+    });
+
+    // Close mobile nav when clicking a link
+    const mobileLinks = navLinks.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('mobile-active');
+        const spans = menuToggle.querySelectorAll('span');
+        spans.forEach(span => {
+          span.style.backgroundColor = '#f5f5f7';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
