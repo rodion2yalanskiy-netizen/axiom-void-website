@@ -126,6 +126,50 @@ All sections use the `.reveal` class and are animated in via `IntersectionObserv
 
 ---
 
+## UI/UX & Design Guidelines
+
+> **Mandatory checklist for every frontend change.**
+> Before committing any modification to `index.html` (markup, styles, or scripts), Claude must verify all four areas below.
+
+### 1. Responsiveness
+- Test every new layout at the primary breakpoint (`max-width: 992px`) — grids must collapse to a single column cleanly.
+- Check at three viewport widths: **375px** (mobile), **768px** (tablet), **1440px** (desktop).
+- No horizontal scroll at any breakpoint (`overflow-x: hidden` is set globally — do not break it).
+- Touch targets (buttons, links) must be at least **44×44 px** on mobile.
+- Text must remain legible (no overflow, no clipping) at all sizes.
+
+### 2. Luxury Brand Compliance
+- **Every visual decision must feel premium.** QSNera targets high-end residential and commercial clients — nothing should look generic, cheap, or misaligned with the dark-gold aesthetic.
+- **Color:** Only use tokens from the Design System table. Never introduce new colors outside `:root`.
+- **Typography:** Headings → `--font-serif` (Playfair Display). Body/UI → `--font-sans` (Outfit). No other fonts.
+- **Spacing:** Sections use `padding: 10rem 0` on desktop, `6rem 0` on mobile — maintain this scale.
+- **Borders & dividers:** Always `1px solid var(--color-gold-border)` — never solid opaque borders.
+- **Imagery:** Assets are high-res stone/marble textures. Do not resize, compress, or replace without approval.
+- **Tone of UI copy:** Uppercase labels, wide letter-spacing (`letter-spacing: 0.1em`+), restrained punctuation. No playful or casual language.
+
+### 3. Accessibility (a11y)
+- All `<img>` elements must have a descriptive `alt` attribute.
+- Interactive elements (`<button>`, `<a>`) must be keyboard-focusable and have visible `:focus-visible` styles.
+- Color contrast ratio must meet **WCAG AA** minimum: 4.5:1 for body text, 3:1 for large text/UI components. Gold on dark backgrounds already passes — verify any new color combination.
+- Use semantic HTML: `<button>` for actions, `<a>` for navigation. Never use `<div>` as a click target.
+- Form inputs in `#contact` must have associated `<label>` elements.
+- Do not remove or override `aria-*` attributes without an explicit reason.
+
+### 4. Animation Quality
+- All transitions must use the design system easing: `cubic-bezier(0.16, 1, 0.3, 1)` — this is a premium ease-out curve, not linear or ease-in-out.
+- Duration: `--transition-fast` (0.3s) for hover states; `--transition-smooth` (0.6s) for section/layout animations.
+- Scroll-reveal: use the existing `IntersectionObserver` + `.reveal` class. Do not add scroll event listeners.
+- Animations must respect `prefers-reduced-motion`:
+  ```css
+  @media (prefers-reduced-motion: reduce) {
+    /* disable or simplify animation */
+  }
+  ```
+- No jank: avoid animating `width`, `height`, `top`, `left`. Animate `transform` and `opacity` only.
+- The pulsing `.seam-pulse` and scroll-reveal timing must not be disrupted by new CSS additions.
+
+---
+
 ## Key Interactions
 
 ### Scroll Reveal Animation
