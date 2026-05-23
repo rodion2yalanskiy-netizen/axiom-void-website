@@ -148,14 +148,21 @@
     .service-card p { color: var(--color-cream-dim); font-size: 0.95rem; line-height: 1.7; }
 
     /* PORTFOLIO */
-    .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 320px); gap: 1rem; border-radius: 8px; overflow: hidden; }
-    .portfolio-item { position: relative; overflow: hidden; background: var(--color-bg-card); }
-    .portfolio-item:first-child { grid-row: span 2; }
-    .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+    .portfolio-item { position: relative; overflow: hidden; background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: 4px; }
+    .portfolio-item img { display: block; width: 100%; height: 320px; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
     .portfolio-item:hover img { transform: scale(1.05); }
     .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,27,46,0.92) 0%, transparent 60%); opacity: 0; transition: var(--transition-fast); display: flex; align-items: flex-end; padding: 1.5rem; }
     .portfolio-item:hover .portfolio-overlay { opacity: 1; }
     .portfolio-caption { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-cream); }
+    /* Portfolio — CSS gradient card visuals */
+    .portfolio-card-visual { height: 220px; background: linear-gradient(135deg, var(--grad-start, #152845), var(--grad-end, #0D1B2E)); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: filter var(--transition-fast); }
+    .portfolio-card-visual::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 30%, rgba(200,144,58,0.10) 0%, transparent 65%); pointer-events: none; }
+    .portfolio-item:hover .portfolio-card-visual { filter: brightness(1.12); }
+    .portfolio-card-label { font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,236,215,0.88); background: rgba(0,0,0,0.32); padding: 0.45rem 1rem; border-radius: 100px; border: 1px solid rgba(245,236,215,0.18); position: relative; z-index: 1; }
+    .portfolio-card-info { padding: 1.2rem 1.4rem; }
+    .portfolio-card-info h3 { font-family: var(--font-serif); font-size: 1.05rem; font-weight: 600; color: var(--color-cream); margin-bottom: 0.35rem; line-height: 1.3; }
+    .portfolio-card-info p { font-size: 0.82rem; color: var(--color-cream-dim); letter-spacing: 0.02em; }
 
     /* WHY US */
     .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -249,9 +256,8 @@
       .trust-item:nth-child(2) { border-right: none; }
       .trust-item:nth-child(3) { border-top: 1px solid var(--color-border); }
       .services-grid { grid-template-columns: 1fr; }
-      .portfolio-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .portfolio-item:first-child { grid-row: span 1; }
-      .portfolio-item { height: 280px; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-item img { height: 260px; }
       .why-grid { grid-template-columns: 1fr; gap: 3rem; }
       .process-steps { grid-template-columns: repeat(2, 1fr); }
       .process-steps::before { display: none; }
@@ -406,6 +412,106 @@
         <div class="portfolio-item"><img src="assets/portfolio-2.png" alt="Large-format porcelain floor in modern living room" loading="lazy" /><div class="portfolio-overlay"><span class="portfolio-caption">Porcelain Slab &middot; West Linn</span></div></div>
         <div class="portfolio-item"><img src="assets/portfolio-3.png" alt="Zellige tile installation in master bathroom" loading="lazy" /><div class="portfolio-overlay"><span class="portfolio-caption">Zellige Bath &middot; SW Portland</span></div></div>
         <div class="portfolio-item"><img src="assets/portfolio-4.png" alt="Stone feature wall in commercial lobby" loading="lazy" /><div class="portfolio-overlay"><span class="portfolio-caption">Feature Wall &middot; Pearl District</span></div></div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #3B3330; --grad-end: #1E2D3E;">
+            <div class="portfolio-card-label">Bookmatched Marble</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Bookmatched Marble Entry Hall</h3>
+            <p>Beverly Hills Estate &middot; 280 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #1A3D3A; --grad-end: #2D1A42;">
+            <div class="portfolio-card-label">Zellige Ceramic</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Zellige Moroccan Kitchen</h3>
+            <p>Malibu Residence &middot; 120 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #162540; --grad-end: #243050;">
+            <div class="portfolio-card-label">Large-Format Porcelain</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Large-Format Porcelain Living</h3>
+            <p>Santa Monica Villa &middot; 650 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #3D2B18; --grad-end: #241A0E;">
+            <div class="portfolio-card-label">Travertine Stone</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Herringbone Travertine Terrace</h3>
+            <p>Bel Air Property &middot; 400 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #3D2C08; --grad-end: #1E1A0A;">
+            <div class="portfolio-card-label">Calacatta Gold</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Calacatta Gold Master Bath</h3>
+            <p>Hollywood Hills &middot; 180 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #1A1E22; --grad-end: #0E1416;">
+            <div class="portfolio-card-label">Natural Slate</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Slate Feature Wall</h3>
+            <p>Century City Penthouse &middot; 90 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #0A2035; --grad-end: #103A50;">
+            <div class="portfolio-card-label">Venetian Mosaic</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Venetian Mosaic Pool Deck</h3>
+            <p>Holmby Hills Estate &middot; 500 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #2E2C28; --grad-end: #1A1814;">
+            <div class="portfolio-card-label">Statuario Marble</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>White Marble Kitchen Island</h3>
+            <p>Pacific Palisades &middot; 60 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #1E0A28; --grad-end: #2A1A38;">
+            <div class="portfolio-card-label">Black Onyx</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Onyx Bathroom Accent</h3>
+            <p>Sunset Strip Condo &middot; 45 sq ft</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item reveal">
+          <div class="portfolio-card-visual" style="--grad-start: #1E2A22; --grad-end: #2A3028;">
+            <div class="portfolio-card-label">Terrazzo</div>
+          </div>
+          <div class="portfolio-card-info">
+            <h3>Terrazzo Commercial Lobby</h3>
+            <p>Downtown LA Office &middot; 800 sq ft</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
