@@ -19,3 +19,5 @@
 | `28415d9` | 2026-05-23 14:25 | fix: add git config to workflow, update test task |
 | `1c2bcd6` | 2026-05-23 14:42 | feat: GitHub Actions AI agent pipeline |
 | `2ea3761` | 2026-05-23 14:42 | feat: add code-quality GitHub Actions workflow |
+| `5b0df16` | 2026-05-23 14:44 | fix: detect only ADDED task files, not modified [skip ci] |
+| `ba2ba12` | 2026-05-23 14:47 | fix: find tasks by status:pending frontmatter [skip ci] |
