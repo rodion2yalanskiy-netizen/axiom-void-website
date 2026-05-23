@@ -17,3 +17,5 @@
 | `2e15f9b` | 2026-05-23 14:23 | fix: correct OpenRouter model ID (claude-sonnet-4.5) |
 | `c74e7d2` | 2026-05-23 14:24 | test: trigger agent pipeline (model fix) |
 | `28415d9` | 2026-05-23 14:25 | fix: add git config to workflow, update test task |
+| `1c2bcd6` | 2026-05-23 14:42 | feat: GitHub Actions AI agent pipeline |
+| `2ea3761` | 2026-05-23 14:42 | feat: add code-quality GitHub Actions workflow |
