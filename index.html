@@ -243,7 +243,27 @@
     /* RESPONSIVE */
     @media (max-width: 992px) {
       .section { padding: 6rem 0; }
-      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      /* Mobile nav overlay — toggled via JS */
+      .nav-links {
+        position: fixed;
+        inset: 0;
+        background: rgba(13,27,46,0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        z-index: 98;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity var(--transition-fast);
+      }
+      .nav-links.open { opacity: 1; pointer-events: auto; }
+      .nav-links li { list-style: none; }
+      .nav-links a { font-size: 1.3rem; color: var(--color-cream); letter-spacing: 0.06em; }
+      .nav-links a:hover { color: var(--color-copper-bright); }
+      .nav-cta { margin-left: 0 !important; }
       .trust-grid { grid-template-columns: repeat(2, 1fr); }
       .trust-item:nth-child(2) { border-right: none; }
       .trust-item:nth-child(3) { border-top: 1px solid var(--color-border); }
@@ -269,6 +289,33 @@
       .footer-grid { grid-template-columns: 1fr; }
     }
 
+    /* NAV TOGGLE (hamburger) */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-cream);
+      border-radius: 2px;
+      transition: var(--transition-fast);
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     /* === Floating CTA Button === */
     .cta-float {
       position: fixed;
@@ -279,15 +326,15 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.85rem 1.4rem;
-      background: #d4a843;
-      color: #1a1a1a;
+      background: var(--color-indigo);
+      color: #fff;
       text-decoration: none;
       font-family: var(--font-sans);
       font-size: 0.85rem;
       font-weight: 600;
       letter-spacing: 0.05em;
       border-radius: 50px;
-      box-shadow: 0 4px 20px rgba(212,168,67,0.4);
+      box-shadow: 0 4px 20px rgba(79,70,229,0.4);
       opacity: 0;
       transform: translateY(20px);
       transition: opacity 0.4s ease, transform 0.4s ease,
@@ -300,12 +347,12 @@
       pointer-events: auto;
     }
     .cta-float:hover {
-      background: #e8bb55;
-      box-shadow: 0 6px 28px rgba(212,168,67,0.6);
+      background: var(--color-indigo-hover);
+      box-shadow: 0 6px 28px rgba(79,70,229,0.6);
       transform: translateY(-2px);
     }
     .cta-float:focus-visible {
-      outline: 2px solid #e8bb55;
+      outline: 2px solid var(--color-copper-bright);
       outline-offset: 3px;
     }
     @media (prefers-reduced-motion: reduce) {
@@ -323,13 +370,16 @@
   <nav class="nav" role="navigation" aria-label="Main navigation">
     <div class="container nav-inner">
       <a href="#hero" class="nav-logo">QS<span>Nera</span></a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#services">Services</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#contact" class="btn btn-primary nav-cta">Get Estimate</a></li>
       </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </nav>
 
@@ -571,12 +621,12 @@
         <div class="footer-col"><h4>Studio</h4><ul class="footer-links"><li><a href="#why-us">Why QSNera</a></li><li><a href="#process">Our Process</a></li><li><a href="#portfolio">Portfolio</a></li></ul></div>
         <div class="footer-col"><h4>Contact</h4><ul class="footer-links"><li><a href="#contact">Get an Estimate</a></li><li><a href="mailto:inquire@qsnera.com">inquire@qsnera.com</a></li><li><a href="#faq">FAQ</a></li></ul></div>
       </div>
-      <div class="footer-bottom"><p>&copy; 2026 QSNera. Luxury Tile &amp; Stone Studio.</p><p>Portland Metro &middot; Premium Tile &amp; Stone Installation</p><p style="font-family:'Outfit',sans-serif;font-size:0.75rem;color:#888;">Pipeline v1.0 — powered by AI</p></div>
+      <div class="footer-bottom"><p>&copy; 2026 QSNera. Luxury Tile &amp; Stone Studio.</p><p>Portland Metro &middot; Premium Tile &amp; Stone Installation</p></div>
     </div>
   </footer>
 
   <div class="mobile-cta" role="complementary" aria-label="Quick actions">
-    <a href="tel:+" class="btn btn-outline">&#9990; Call Now</a>
+    <a href="mailto:inquire@qsnera.com" class="btn btn-outline">&#9993; Email Us</a>
     <a href="#contact" class="btn btn-primary">Get Estimate &rarr;</a>
   </div>
 
@@ -611,6 +661,26 @@
       }, { passive: true });
     }
 
+    // Mobile hamburger nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => {
+        const isOpen = navToggle.classList.toggle('open');
+        navLinks.classList.toggle('open', isOpen);
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navToggle.classList.remove('open');
+          navLinks.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        });
+      });
+    }
+
     // Floating CTA — появляется через 3 сек после загрузки
     setTimeout(() => {
       const ctaBtn = document.getElementById('ctaFloat');
@@ -619,11 +689,11 @@
   </script>
 
   <!-- Floating CTA Button -->
-  <a href="#contact" class="cta-float" id="ctaFloat" aria-label="Получить консультацию">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <a href="#contact" class="cta-float" id="ctaFloat" aria-label="Get free estimate">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/>
     </svg>
-    <span>Консультация</span>
+    <span>Get Estimate</span>
   </a>
 </body>
 </html>
