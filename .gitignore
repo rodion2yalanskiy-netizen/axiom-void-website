@@ -7,3 +7,4 @@ build/
 # Obsidian vault – personal notes, not website source
 Obsidian Vault/
 Q&A/
+.vercel
