@@ -371,6 +371,13 @@
       border-bottom: 1px solid var(--color-border-dim);
       position: relative; overflow: hidden;
     }
+    .portfolio-thumb img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-smooth);
+    }
+    .portfolio-card:hover .portfolio-thumb img { transform: scale(1.04); }
     .portfolio-thumb::before {
       content: ''; position: absolute; inset: 0;
       background: linear-gradient(135deg, rgba(0,212,255,0.04) 0%, transparent 60%);
@@ -657,7 +664,7 @@
       </header>
       <div class="portfolio-grid">
         <article class="portfolio-card reveal">
-          <div class="portfolio-thumb" aria-label="Analytics Platform preview"><span>[ SaaS Dashboard ]</span></div>
+          <div class="portfolio-thumb" aria-label="Analytics Platform preview"><img src="assets/portfolio-1.png" alt="Analytics Platform" loading="lazy"></div>
           <div class="portfolio-info">
             <div class="portfolio-type">Void:Form + Axiom:Core</div>
             <h3 class="portfolio-name">Analytics Platform</h3>
@@ -665,7 +672,7 @@
           </div>
         </article>
         <article class="portfolio-card reveal">
-          <div class="portfolio-thumb" aria-label="Document Intelligence preview"><span>[ AI Workflow ]</span></div>
+          <div class="portfolio-thumb" aria-label="Document Intelligence preview"><img src="assets/portfolio-2.png" alt="Document Intelligence" loading="lazy"></div>
           <div class="portfolio-info">
             <div class="portfolio-type">The Nexus</div>
             <h3 class="portfolio-name">Document Intelligence</h3>
@@ -673,7 +680,7 @@
           </div>
         </article>
         <article class="portfolio-card reveal">
-          <div class="portfolio-thumb" aria-label="Premium Store preview"><span>[ E-commerce ]</span></div>
+          <div class="portfolio-thumb" aria-label="Premium Store preview"><img src="assets/portfolio-3.png" alt="Premium Store" loading="lazy"></div>
           <div class="portfolio-info">
             <div class="portfolio-type">Void:Form + Axiom:Core</div>
             <h3 class="portfolio-name">Premium Store</h3>
@@ -681,7 +688,7 @@
           </div>
         </article>
         <article class="portfolio-card reveal">
-          <div class="portfolio-thumb" aria-label="Performance Recovery preview"><span>[ Audit ]</span></div>
+          <div class="portfolio-thumb" aria-label="Performance Recovery preview"><img src="assets/portfolio-4.png" alt="Performance Recovery" loading="lazy"></div>
           <div class="portfolio-info">
             <div class="portfolio-type">Absolute Zero</div>
             <h3 class="portfolio-name">Performance Recovery</h3>
@@ -840,7 +847,7 @@
             <div class="contact-item">Response time: &lt;24h</div>
           </div>
         </div>
-        <form class="contact-form reveal" name="contact" method="post" action="#contact" novalidate>
+        <form class="contact-form reveal" id="contactForm" name="contact" novalidate>
           <div class="form-group">
             <label class="form-label" for="contact-name">Name</label>
             <input class="form-input" type="text" id="contact-name" name="name" placeholder="Your name" required autocomplete="name">
@@ -947,6 +954,42 @@
       });
     }, { threshold: 0.4 });
     sections.forEach(s => navObs.observe(s));
+
+    /* Contact form — mailto fallback (replace action with Formspree ID when ready) */
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const fd   = new FormData(this);
+        const name    = fd.get('name')    || '';
+        const email   = fd.get('email')   || '';
+        const service = fd.get('service') || '';
+        const message = fd.get('message') || '';
+        const subject = encodeURIComponent('Project Inquiry — ' + service);
+        const body    = encodeURIComponent(
+          'Name: '    + name    + '\n' +
+          'Email: '   + email   + '\n' +
+          'Service: ' + service + '\n\n' +
+          message
+        );
+        window.location.href = 'mailto:rodion2yalanskiy@gmail.com?subject=' + subject + '&body=' + body;
+        const wrap = document.createElement('div');
+        wrap.style.cssText = 'padding:32px 0;font-family:var(--font-mono)';
+        const p1 = document.createElement('p');
+        p1.style.cssText = 'color:var(--color-accent);font-size:18px;margin-bottom:12px';
+        p1.textContent = '✓ Opening your email client…';
+        const p2 = document.createElement('p');
+        p2.style.cssText = 'color:var(--color-text-dim);font-size:13px';
+        p2.textContent = 'Or write directly: ';
+        const link = document.createElement('a');
+        link.href = 'mailto:rodion2yalanskiy@gmail.com';
+        link.textContent = 'rodion2yalanskiy@gmail.com';
+        p2.appendChild(link);
+        wrap.appendChild(p1);
+        wrap.appendChild(p2);
+        this.replaceChildren(wrap);
+      });
+    }
   </script>
 </body>
 </html>

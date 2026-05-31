@@ -51,7 +51,7 @@ def call_openrouter(task_text: str, task_name: str) -> str:
         print("❌ OPENROUTER_API_KEY не задан в secrets")
         sys.exit(1)
 
-    prompt = f"""Ты — AI-агент для выполнения задач из системы управления проектами QSNera.
+    prompt = f"""Ты — AI-агент для выполнения задач из системы управления проектами Axiom:Void.
 
 Задача: {task_name}
 
@@ -74,7 +74,7 @@ def call_openrouter(task_text: str, task_name: str) -> str:
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "Content-Type": "application/json",
         "HTTP-Referer": "https://github.com/rodion2yalanskiy-netizen/premium-tiling-website",
-        "X-Title": "QSNera Agent Pipeline",
+        "X-Title": "Axiom:Void Agent Pipeline",
     }
 
     print(f"📤 Отправляю задачу '{task_name}' в OpenRouter ({MODEL})...")
